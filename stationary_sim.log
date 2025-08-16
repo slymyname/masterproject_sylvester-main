@@ -1,0 +1,161 @@
+PS E:\gemini\masterproject_sylvester-main> & C:/Users/godfa/anaconda3/python.exe e:/gemini/masterproject_sylvester-main/Main.py
+2
+[2025-05-22 21:15:17.892535] Initial Tsupply: [120]
+[2025-05-22 21:15:17.898248] Starting stationary simulation loop...
+\n[2025-05-22 21:15:17.898248] --- Main Timestep Start: 2022-02-01 00:00:00 ---
+[2025-05-22 21:15:17.902112] Updated T_out: 1.60°C
+[2025-05-22 21:15:17.902446] Using Tsupply for timestepStationary: [120]
+  [2025-05-22 21:15:17.902446] Entering timestepStationary for sim time: 2022-02-01 00:00:00
+    [2025-05-22 21:15:27.342735] Calculated self.Q (consumer demands first 5): [ 114285.88502411  276014.02733003   28566.92821389 6100664.27926658
+   21900.35118254] (Mean: 56247.55)
+    [2025-05-22 21:15:27.346266] Outer Thermic-Hydraulic Iteration: 1, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:15:27.619534] Calculated self.m_consumer (first 5): [ 0.58033761  1.40158446  0.14506133 32.35568432  0.11120881] (Sum: 259.57)
+        [2025-05-22 21:15:29.541868] Inner Hydraulic Iteration: 1, Convergence: 5.0990e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:15:30.054706] Inner Hydraulic Iteration: 2, Convergence: 1.2695e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:15:30.544850] Inner Hydraulic Iteration: 3, Convergence: 6.9221e+01 (Target: 1.3000e-01)
+        [2025-05-22 21:15:31.027605] Inner Hydraulic Iteration: 4, Convergence: 1.9175e+01 (Target: 1.3000e-01)
+        [2025-05-22 21:15:31.490277] Inner Hydraulic Iteration: 5, Convergence: 8.1261e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:15:31.966149] Inner Hydraulic Iteration: 6, Convergence: 2.0161e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:15:32.452240] Inner Hydraulic Iteration: 7, Convergence: 5.1432e-01 (Target: 1.3000e-01)
+      [2025-05-22 21:15:35.005888] Hydraulic part converged in 7 iterations. Resulting self.p (first 5): [15.90226059 12.34955499 15.85891843 12.31358493 11.98861476] (Mean: 14.03)
+      [2025-05-22 21:15:35.005888] Resulting self.m_s (first 5): [34.44315476  2.45990683  2.54627845 11.18638029  2.64419959] (Mean: 21.18)
+      [2025-05-22 21:15:39.646992] Calculated self.T (first 5): [119.01792481  71.81399702 118.88793968  71.87562302  67.34823418] (Mean: 85.25°C)
+    [2025-05-22 21:15:39.648310] Outer Thermic-Hydraulic Iteration: 2, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:15:39.928516] Calculated self.m_consumer (first 5): [ 0.49112045  1.1861144   0.12427333 27.13052979  0.09565111] (Sum: 226.08)
+        [2025-05-22 21:15:42.022830] Inner Hydraulic Iteration: 1, Convergence: 2.0412e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:15:42.504143] Inner Hydraulic Iteration: 2, Convergence: 2.9692e+01 (Target: 1.3000e-01)
+        [2025-05-22 21:15:42.989211] Inner Hydraulic Iteration: 3, Convergence: 6.1923e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:15:43.479377] Inner Hydraulic Iteration: 4, Convergence: 1.8045e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:15:43.959679] Inner Hydraulic Iteration: 5, Convergence: 6.8427e-01 (Target: 1.3000e-01)
+      [2025-05-22 21:15:45.843269] Hydraulic part converged in 5 iterations. Resulting self.p (first 5): [15.9235247  12.37990659 15.8810694  12.34350223 12.00245559] (Mean: 14.06)
+      [2025-05-22 21:15:45.844437] Resulting self.m_s (first 5): [30.32352836  2.15811107  2.23089267  9.7080823   2.5162469 ] (Mean: 18.47)
+      [2025-05-22 21:15:50.107217] Calculated self.T (first 5): [118.76430807  62.60824669 118.59644644  62.70022312  61.72515693] (Mean: 82.66°C)
+    [2025-05-22 21:15:50.108215] Outer Thermic-Hydraulic Iteration: 3, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:15:50.372231] Calculated self.m_consumer (first 5): [ 0.49478478  1.19496419  0.12553311 27.30449025  0.09668741] (Sum: 227.80)
+        [2025-05-22 21:15:52.248262] Inner Hydraulic Iteration: 1, Convergence: 1.7745e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:15:52.719419] Inner Hydraulic Iteration: 2, Convergence: 1.4516e+00 (Target: 1.3000e-01)
+      [2025-05-22 21:15:54.544098] Hydraulic part converged in 2 iterations. Resulting self.p (first 5): [15.92239967 12.37869305 15.87991828 12.3421249  12.00065992] (Mean: 14.06)
+      [2025-05-22 21:15:54.544098] Resulting self.m_s (first 5): [30.54823909  2.16670179  2.24214455  9.77211769  2.43254237] (Mean: 18.63)
+      [2025-05-22 21:15:58.861616] Calculated self.T (first 5): [118.7706676   62.92485277 118.60348573  63.00217099  62.74923884] (Mean: 82.60°C)
+    [2025-05-22 21:15:58.863643] Outer Thermic-Hydraulic Iteration: 4, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:15:59.131389] Calculated self.m_consumer (first 5): [ 0.49470517  1.19477193  0.12548747 27.30021929  0.09663522] (Sum: 228.25)
+        [2025-05-22 21:16:00.996446] Inner Hydraulic Iteration: 1, Convergence: 1.7896e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:16:01.472836] Inner Hydraulic Iteration: 2, Convergence: 2.4241e-01 (Target: 1.3000e-01)
+      [2025-05-22 21:16:03.292869] Hydraulic part converged in 2 iterations. Resulting self.p (first 5): [15.9221651  12.37837467 15.87968434 12.34181172 12.00057465] (Mean: 14.06)
+      [2025-05-22 21:16:03.292869] Resulting self.m_s (first 5): [30.58515856  2.16860635  2.24481133  9.79850548  2.48962743] (Mean: 18.65)
+      [2025-05-22 21:16:07.581500] Calculated self.T (first 5): [118.77136862  62.91789887 118.60415701  62.99572338  62.66611118] (Mean: 82.90°C)
+    [2025-05-22 21:16:07.582676] Outer Thermic-Hydraulic Iteration: 5, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:07.860003] Calculated self.m_consumer (first 5): [ 0.49470644  1.19477498  0.12548429 27.29910274  0.09663452] (Sum: 227.71)
+        [2025-05-22 21:16:09.753334] Inner Hydraulic Iteration: 1, Convergence: 1.7917e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:16:10.243353] Inner Hydraulic Iteration: 2, Convergence: 3.0381e-01 (Target: 1.3000e-01)
+      [2025-05-22 21:16:12.071663] Hydraulic part converged in 2 iterations. Resulting self.p (first 5): [15.92246248 12.37874252 15.87998179 12.3421794  12.0008208 ] (Mean: 14.06)
+      [2025-05-22 21:16:12.071663] Resulting self.m_s (first 5): [30.54248154  2.16862955  2.24461415  9.76234502  2.44098427] (Mean: 18.62)
+      [2025-05-22 21:16:16.735439] Calculated self.T (first 5): [118.77058739  62.91653555 118.60343125  62.9943335   62.65832978] (Mean: 82.64°C)
+    [2025-05-22 21:16:16.736189] Outer Thermic-Hydraulic Iteration: 6, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:17.011438] Calculated self.m_consumer (first 5): [ 0.49470144  1.19476292  0.12548788 27.30019766  0.09663729] (Sum: 227.83)
+        [2025-05-22 21:16:19.368507] Inner Hydraulic Iteration: 1, Convergence: 1.7888e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:16:21.174352] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92239347 12.37864845 15.87991271 12.34208535 12.00088766] (Mean: 14.06)
+      [2025-05-22 21:16:21.174352] Resulting self.m_s (first 5): [30.57698154  2.16869663  2.24468672  9.76867238  2.45582712] (Mean: 18.63)
+      [2025-05-22 21:16:25.535912] Calculated self.T (first 5): [118.77048439  62.91709034 118.6032792   62.9948998   62.67119337] (Mean: 82.77°C)
+    [2025-05-22 21:16:25.537333] Outer Thermic-Hydraulic Iteration: 7, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:25.804276] Calculated self.m_consumer (first 5): [ 0.49470697  1.19477626  0.1254882  27.3002796   0.0966387 ] (Sum: 227.72)
+        [2025-05-22 21:16:27.676765] Inner Hydraulic Iteration: 1, Convergence: 1.7898e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:16:29.486235] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92246504 12.37873331 15.87998426 12.34217022 12.00082988] (Mean: 14.06)
+      [2025-05-22 21:16:29.487082] Resulting self.m_s (first 5): [30.55390209  2.16869034  2.24463712  9.76306198  2.44437537] (Mean: 18.62)
+      [2025-05-22 21:16:33.903778] Calculated self.T (first 5): [118.77038098  62.91717708 118.60320796  62.99498585  62.65998751] (Mean: 82.65°C)
+    [2025-05-22 21:16:33.905805] Outer Thermic-Hydraulic Iteration: 8, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:34.172303] Calculated self.m_consumer (first 5): [ 0.49470395  1.19476898  0.12548836 27.30030073  0.0966378 ] (Sum: 227.80)
+        [2025-05-22 21:16:36.124263] Inner Hydraulic Iteration: 1, Convergence: 1.7890e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:16:37.916695] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92241274 12.37867288 15.87993195 12.34210981 12.00087957] (Mean: 14.06)
+      [2025-05-22 21:16:37.916695] Resulting self.m_s (first 5): [30.56977272  2.16871602  2.24467447  9.76660095  2.45193462] (Mean: 18.63)
+      [2025-05-22 21:16:42.275700] Calculated self.T (first 5): [118.77045954  62.91729461 118.60326323  62.99510849  62.66992377] (Mean: 82.74°C)
+    [2025-05-22 21:16:42.276751] Outer Thermic-Hydraulic Iteration: 9, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:42.547750] Calculated self.m_consumer (first 5): [ 0.49470615  1.1947743   0.12548829 27.30030191  0.09663853] (Sum: 227.73)
+        [2025-05-22 21:16:44.441153] Inner Hydraulic Iteration: 1, Convergence: 1.7896e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:16:46.248406] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92245328 12.37871872 15.8799725  12.34215564 12.00082941] (Mean: 14.06)
+      [2025-05-22 21:16:46.249626] Resulting self.m_s (first 5): [30.55798912  2.16870736  2.24464606  9.76418148  2.4464957 ] (Mean: 18.62)
+      [2025-05-22 21:16:50.723382] Calculated self.T (first 5): [118.77038485  62.91718871 118.60320618  62.99499902  62.66161071] (Mean: 82.67°C)
+    [2025-05-22 21:16:50.724366] Outer Thermic-Hydraulic Iteration: 10, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:16:51.019195] Calculated self.m_consumer (first 5): [ 0.49470457  1.19477047  0.12548834 27.30029473  0.09663793] (Sum: 227.78)
+        [2025-05-22 21:16:53.170779] Inner Hydraulic Iteration: 1, Convergence: 1.7891e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:16:55.177609] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92242315 12.37868574 15.87994237 12.34212267 12.00087241] (Mean: 14.06)
+      [2025-05-22 21:16:55.178718] Resulting self.m_s (first 5): [30.56625573  2.16871802  2.24466546  9.76573167  2.45020958] (Mean: 18.62)
+      [2025-05-22 21:16:59.951649] Calculated self.T (first 5): [118.77044259  62.91728528 118.60325054  62.99509827  62.66864829] (Mean: 82.72°C)
+    [2025-05-22 21:16:59.952907] Outer Thermic-Hydraulic Iteration: 11, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:17:00.249020] Calculated self.m_consumer (first 5): [ 0.49470576  1.19477334  0.12548833 27.30030992  0.09663842] (Sum: 227.75)
+        [2025-05-22 21:17:02.254566] Inner Hydraulic Iteration: 1, Convergence: 1.7895e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:17:04.220084] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92244657 12.37871069 15.87996579 12.34214761 12.00083192] (Mean: 14.06)
+      [2025-05-22 21:17:04.222125] Resulting self.m_s (first 5): [30.56017155  2.16871235  2.24464992  9.7647398   2.44759167] (Mean: 18.62)
+      [2025-05-22 21:17:08.751672] Calculated self.T (first 5): [118.77039035  62.91720258 118.60320854  62.99501355  62.66274998] (Mean: 82.68°C)
+    [2025-05-22 21:17:08.754047] Outer Thermic-Hydraulic Loop finished in 11 iterations. Final Thermic Convergence: 0.0000e+00
+    [2025-05-22 21:17:08.755706] Calculated Pump Power: 97311.35, Total Heat Loss: 4832918.82
+  [2025-05-22 21:17:08.755828] Exiting timestepStationary for sim time: 2022-02-01 00:00:00.000001
+[2025-05-22 21:17:08.755828] --- Main Timestep End: 2022-02-01 00:00:00.000001 ---
+\n[2025-05-22 21:17:08.755828] --- Main Timestep Start: 2022-02-01 00:00:00.000001 ---
+[2025-05-22 21:17:08.763402] Updated T_out: 1.60°C
+[2025-05-22 21:17:08.763402] Using Tsupply for timestepStationary: [120]
+  [2025-05-22 21:17:08.764401] Entering timestepStationary for sim time: 2022-02-01 00:00:00.000001
+    [2025-05-22 21:17:08.766451] Calculated self.Q (consumer demands first 5): [ 114285.88502411  276014.02733003   28566.92821389 6100664.27926658
+   21900.35118254] (Mean: 56247.55)
+    [2025-05-22 21:17:08.767451] Outer Thermic-Hydraulic Iteration: 1, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:17:09.045869] Calculated self.m_consumer (first 5): [ 0.4947049   1.19477126  0.12548833 27.30029342  0.09663802] (Sum: 227.78)
+        [2025-05-22 21:17:11.050722] Inner Hydraulic Iteration: 1, Convergence: 1.7892e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:17:13.109940] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92242879 12.37869236 15.879948   12.34212928 12.00086629] (Mean: 14.06)
+      [2025-05-22 21:17:13.110943] Resulting self.m_s (first 5): [30.56451281  2.16871732  2.24466055  9.76534922  2.44939036] (Mean: 18.62)
+      [2025-05-22 21:17:17.935332] Calculated self.T (first 5): [118.7704327   62.91727632 118.60324307  62.99508883  62.66775245] (Mean: 82.71°C)
+    [2025-05-22 21:17:17.936325] Outer Thermic-Hydraulic Loop finished in 1 iterations. Final Thermic Convergence: 0.0000e+00
+    [2025-05-22 21:17:17.937049] Calculated Pump Power: 97324.40, Total Heat Loss: 4829718.74
+  [2025-05-22 21:17:17.937049] Exiting timestepStationary for sim time: 2022-02-01 00:15:00.000001
+[2025-05-22 21:17:17.937049] --- Main Timestep End: 2022-02-01 00:15:00.000001 ---
+\n[2025-05-22 21:17:17.937049] --- Main Timestep Start: 2022-02-01 00:15:00.000001 ---
+[2025-05-22 21:17:17.937049] Updated T_out: 1.60°C
+[2025-05-22 21:17:17.937049] Using Tsupply for timestepStationary: [120]
+  [2025-05-22 21:17:17.938091] Entering timestepStationary for sim time: 2022-02-01 00:15:00.000001
+    [2025-05-22 21:17:17.940073] Calculated self.Q (consumer demands first 5): [ 114285.88502411  276014.02733003   28566.92821389 6100664.27926658
+   21900.35118254] (Mean: 56247.55)
+    [2025-05-22 21:17:17.941074] Outer Thermic-Hydraulic Iteration: 1, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:17:18.277637] Calculated self.m_consumer (first 5): [ 0.49470554  1.19477281  0.12548835 27.30031091  0.09663835] (Sum: 227.75)
+        [2025-05-22 21:17:20.485931] Inner Hydraulic Iteration: 1, Convergence: 1.7894e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:17:22.555946] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.9224427  12.37870626 15.87996191 12.34214319 12.00083527] (Mean: 14.06)
+      [2025-05-22 21:17:22.558017] Resulting self.m_s (first 5): [30.56133017  2.16871409  2.24465203  9.76499877  2.44814645] (Mean: 18.62)
+      [2025-05-22 21:17:27.154629] Calculated self.T (first 5): [118.77039542  62.91721267 118.60321182  62.995024    62.66353946] (Mean: 82.69°C)
+    [2025-05-22 21:17:27.155629] Outer Thermic-Hydraulic Loop finished in 1 iterations. Final Thermic Convergence: 0.0000e+00
+    [2025-05-22 21:17:27.157164] Calculated Pump Power: 97314.08, Total Heat Loss: 4832203.15
+  [2025-05-22 21:17:27.157164] Exiting timestepStationary for sim time: 2022-02-01 00:30:00.000001
+[2025-05-22 21:17:27.158337] --- Main Timestep End: 2022-02-01 00:30:00.000001 ---
+\n[2025-05-22 21:17:27.158337] --- Main Timestep Start: 2022-02-01 00:30:00.000001 ---
+[2025-05-22 21:17:27.158337] Updated T_out: 1.60°C
+[2025-05-22 21:17:27.158337] Using Tsupply for timestepStationary: [120]
+  [2025-05-22 21:17:27.158337] Entering timestepStationary for sim time: 2022-02-01 00:30:00.000001
+    [2025-05-22 21:17:27.162307] Calculated self.Q (consumer demands first 5): [ 114285.88502411  276014.02733003   28566.92821389 6100664.27926658
+   21900.35118254] (Mean: 56247.55)
+    [2025-05-22 21:17:27.163833] Outer Thermic-Hydraulic Iteration: 1, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:17:27.446976] Calculated self.m_consumer (first 5): [ 0.49470507  1.19477169  0.12548833 27.30029431  0.09663808] (Sum: 227.77)
+        [2025-05-22 21:17:29.471303] Inner Hydraulic Iteration: 1, Convergence: 1.7892e+02 (Target: 1.3000e-01)
+      [2025-05-22 21:17:31.505631] Hydraulic part converged in 1 iterations. Resulting self.p (first 5): [15.92243196 12.37869589 15.87995118 12.34213282 12.00086152] (Mean: 14.06)
+      [2025-05-22 21:17:31.507025] Resulting self.m_s (first 5): [30.5636239   2.16871657  2.24465801  9.76518528  2.44899543] (Mean: 18.62)
+      [2025-05-22 21:17:36.144062] Calculated self.T (first 5): [118.77042631  62.91726855 118.60323808  62.99508078  62.66711269] (Mean: 82.71°C)
+    [2025-05-22 21:17:36.145621] Outer Thermic-Hydraulic Loop finished in 1 iterations. Final Thermic Convergence: 0.0000e+00
+    [2025-05-22 21:17:36.146904] Calculated Pump Power: 97322.04, Total Heat Loss: 4830272.34
+  [2025-05-22 21:17:36.147949] Exiting timestepStationary for sim time: 2022-02-01 00:45:00.000001
+[2025-05-22 21:17:36.147949] --- Main Timestep End: 2022-02-01 00:45:00.000001 ---
+\n[2025-05-22 21:17:36.147949] --- Main Timestep Start: 2022-02-01 00:45:00.000001 ---
+[2025-05-22 21:17:36.147949] Updated T_out: 1.60°C
+[2025-05-22 21:17:36.147949] Using Tsupply for timestepStationary: [120]
+  [2025-05-22 21:17:36.149613] Entering timestepStationary for sim time: 2022-02-01 00:45:00.000001
+    [2025-05-22 21:17:36.153079] Calculated self.Q (consumer demands first 5): [ 128490.91028134  310320.85558574   28761.92431091 6858938.93544661
+   22049.8416343 ] (Mean: 59242.19)
+    [2025-05-22 21:17:36.154076] Outer Thermic-Hydraulic Iteration: 1, Convergence: 0.0000e+00 (Target: 4.1085e+01)
+      [2025-05-22 21:17:36.437194] Calculated self.m_consumer (first 5): [ 0.55619423  1.34327532  0.12634493 30.69356851  0.09729795] (Sum: 240.22)
+        [2025-05-22 21:17:38.508025] Inner Hydraulic Iteration: 1, Convergence: 1.7894e+02 (Target: 1.3000e-01)
+        [2025-05-22 21:17:39.034282] Inner Hydraulic Iteration: 2, Convergence: 9.9998e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:17:39.533502] Inner Hydraulic Iteration: 3, Convergence: 1.3928e+00 (Target: 1.3000e-01)
+        [2025-05-22 21:17:40.032252] Inner Hydraulic Iteration: 4, Convergence: 3.9557e-01 (Target: 1.3000e-01)
+      [2025-05-22 21:17:41.986861] Hydraulic part converged in 4 iterations. Resulting self.p (first 5): [15.91376396 12.36072892 15.87087657 12.32460192 11.98300211] (Mean: 14.04)
+      [2025-05-22 21:17:41.986861] Resulting self.m_s (first 5): [32.56174415  2.39598086  2.4740298  11.11514036  3.00779979] (Mean: 19.83)
+      [2025-05-22 21:17:46.565656] Calculated self.T (first 5): [118.83922597  63.01487223 118.69052404  63.0840815   62.9502285 ] (Mean: 82.83°C)
+    [2025-05-22 21:17:46.567243] Outer Thermic-Hydraulic Loop finished in 1 iterations. Final Thermic Convergence: 0.0000e+00
+    [2025-05-22 21:17:46.568371] Calculated Pump Power: 103342.20, Total Heat Loss: 4831782.04
+  [2025-05-22 21:17:46.568371] Exiting timestepStationary for sim time: 2022-02-01 01:00:00.000001
+[2025-05-22 21:17:46.569417] --- Main Timestep End: 2022-02-01 01:00:00.000001 ---
+The time of execution of above program is : 388.73668694496155 s
