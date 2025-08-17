@@ -284,10 +284,31 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
 
         # Calculate and store the minimum pressure difference across all consumers
         consumer_p_diffs = SimEngine.p[StaticData.vorlauf_consumptionnode] - SimEngine.p[StaticData.ruecklauf_consumptionnode]
-        min_p_diff = np.min(consumer_p_diffs) if len(consumer_p_diffs) > 0 else 0
-        PlotResult.p_diff_consumer_min.append(min_p_diff)
-        # --- End MPC State Collection ---
+        min_consumer_p_diff = np.min(consumer_p_diffs)
+        PlotResult.p_diff_consumer_min.append(min_consumer_p_diff)
+        
+        # --- Record Data for NN Training ---
+        current_ambient_temp = LoadMeasValues.T_a_amb_t
+        # Calculate total heat delivered to consumers (a proxy for demand)
+        cp_water = 4186 # J/kgK, approximate
+        heat_delivered = np.sum(SimEngine.m_consumer * cp_water * 
+                                (SimEngine.T[StaticData.vorlauf_consumptionnode] - SimEngine.T[StaticData.ruecklauf_consumptionnode]))
+        
+        snapshot = {
+            # Inputs
+            'T_supply': Tsupply_current_step_value,
+            'T_ambient': current_ambient_temp,
+            'Heat_Demand': heat_delivered,
+            # Outputs
+            'Heat_Loss': SimEngine.HeatLoses,
+            'Pump_Power': SimEngine.hydraulicPower,
+            'P_outlet': plant_outlet_pressure,
+            'P_inlet': plant_inlet_pressure,
+            'P_diff_min': min_consumer_p_diff
+        }
+        mpc_data_recorder.append(snapshot)
 
+        
         if ProgramModes.EnableSnapshotSaving: 
             current_datetime_snapshots.append(SimEngine.datetimeStationary[-1])
             current_T_snapshots.append(SimEngine.T.copy())
@@ -437,3 +458,58 @@ ps.print_stats(50)
 print(s.getvalue())                
 # profiler.dump_stats(os.path.join(snapshot_dir, 'rom_profile.prof')) 
 # print(f"Profiling data saved to {os.path.join(snapshot_dir, 'rom_profile.prof')}") 
+
+if __name__ == "__main__":
+    
+    # --- Initialize Data Structures ---
+    PlotResult = PlotResult(ProgramModes)
+    mpc_data_recorder = [] # To store data for NN training
+    
+    if ProgramModes.SystemMode=='TimeSeries' and ProgramModes.TempratureCalculationMode=='stationary':
+        
+        # --- Save Recorded Data for NN Training ---
+        if mpc_data_recorder:
+            # Convert list of dicts to a structured NumPy array for easier handling later
+            # We define the data type for each column
+            dtype = [('T_supply', 'f8'), ('T_ambient', 'f8'), ('Heat_Demand', 'f8'),
+                     ('Heat_Loss', 'f8'), ('Pump_Power', 'f8'), ('P_outlet', 'f8'), 
+                     ('P_inlet', 'f8'), ('P_diff_min', 'f8')]
+            
+            # Create an empty array with the correct shape and dtype
+            data_array = np.empty(len(mpc_data_recorder), dtype=dtype)
+            
+            # Fill the array
+            for i, record in enumerate(mpc_data_recorder):
+                data_array[i] = (record['T_supply'], record['T_ambient'], record['Heat_Demand'],
+                                 record['Heat_Loss'], record['Pump_Power'], record['P_outlet'],
+                                 record['P_inlet'], record['P_diff_min'])
+            
+            output_filename = 'mpc_training_data.npy'
+            np.save(output_filename, data_array)
+            print(f"\nSuccessfully saved MPC training data to '{output_filename}'")
+            print(f"Recorded {len(data_array)} timesteps.")
+
+    
+    elif ProgramModes.SystemMode=='coupling' and ProgramModes.TempratureCalculationMode=='stationary':
+        
+        # --- Save Recorded Data for NN Training ---
+        if mpc_data_recorder:
+            # Convert list of dicts to a structured NumPy array for easier handling later
+            # We define the data type for each column
+            dtype = [('T_supply', 'f8'), ('T_ambient', 'f8'), ('Heat_Demand', 'f8'),
+                     ('Heat_Loss', 'f8'), ('Pump_Power', 'f8'), ('P_outlet', 'f8'), 
+                     ('P_inlet', 'f8'), ('P_diff_min', 'f8')]
+            
+            # Create an empty array with the correct shape and dtype
+            data_array = np.empty(len(mpc_data_recorder), dtype=dtype)
+            
+            # Fill the array
+            for i, record in enumerate(mpc_data_recorder):
+                data_array[i] = (record['T_supply'], record['T_ambient'], record['Heat_Demand'],
+                                 record['Heat_Loss'], record['Pump_Power'], record['P_outlet'],
+                                 record['P_inlet'], record['P_diff_min'])
+            
+            output_filename = 'mpc_training_data.npy'
+            np.save(output_filename, data_array)
+            print(f"\nSuccessfully saved MPC training data to '{output_filename}'")
+            print(f"Recorded {len(data_array)} timesteps.") 
