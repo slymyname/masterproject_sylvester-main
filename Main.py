@@ -288,7 +288,7 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
         PlotResult.p_diff_consumer_min.append(min_consumer_p_diff)
         
         # --- Record Data for NN Training ---
-        current_ambient_temp = LoadMeasValues.T_a_amb_t
+        current_ambient_temp = SimEngine.T_out # Corrected: Get temp from SimEngine
         # Calculate total heat delivered to consumers (a proxy for demand)
         cp_water = 4186 # J/kgK, approximate
         heat_delivered = np.sum(SimEngine.m_consumer * cp_water * 
