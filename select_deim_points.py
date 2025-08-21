@@ -97,7 +97,11 @@ if __name__ == '__main__':
     fom_snapshot_dir = 'fom_snapshots'
     
     # --- Parameters for Q_loss_Pipe DEIM --- #
+<<<<<<< HEAD
     m_q_loss = 5
+=======
+    m_q_loss = 2
+>>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
     q_loss_basis_matrix_path = os.path.join(fom_snapshot_dir, 'deim_q_loss_U_matrix.npy')
     q_loss_indices_path = os.path.join(fom_snapshot_dir, f'deim_q_loss_indices_m{m_q_loss}.npy')
     q_loss_proj_matrix_path = os.path.join(fom_snapshot_dir, f'deim_q_loss_proj_matrix_m{m_q_loss}.npy')
@@ -127,7 +131,11 @@ if __name__ == '__main__':
     print("-----------------------------------------------------\n")
 
     # --- Parameters for cp_Nodes DEIM --- #
+<<<<<<< HEAD
     m_cp = 1
+=======
+    m_cp = 2
+>>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
     cp_basis_matrix_path = os.path.join(fom_snapshot_dir, 'deim_cp_U_matrix.npy')
     cp_indices_path = os.path.join(fom_snapshot_dir, f'deim_cp_indices_m{m_cp}.npy')
     cp_proj_matrix_path = os.path.join(fom_snapshot_dir, f'deim_cp_proj_matrix_m{m_cp}.npy')
@@ -142,7 +150,11 @@ if __name__ == '__main__':
     print("-----------------------------------------------------\n")
 
     # --- Parameters for viscosity_Nodes DEIM --- #
+<<<<<<< HEAD
     m_viscosity = 5
+=======
+    m_viscosity = 2
+>>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
     viscosity_basis_matrix_path = os.path.join(fom_snapshot_dir, 'deim_viscosity_U_matrix.npy')
     viscosity_indices_path = os.path.join(fom_snapshot_dir, f'deim_viscosity_indices_m{m_viscosity}.npy')
     viscosity_proj_matrix_path = os.path.join(fom_snapshot_dir, f'deim_viscosity_proj_matrix_m{m_viscosity}.npy')
