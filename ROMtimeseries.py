@@ -42,13 +42,8 @@ class ROMTimeSeries:
         # ROM assets and sizes (chosen offline based on snapshot analyses)
         self.r_dim = 2
         self.m_rho = 2
-<<<<<<< HEAD
         self.m_cp = 1
         self.m_q_loss = 5
-=======
-        self.m_cp = 2
-        self.m_q_loss = 2
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
 
         fom_snapshot_dir = 'fom_snapshots' # Base directory for ROM data
 
@@ -95,11 +90,7 @@ class ROMTimeSeries:
             raise
 
         # Load DEIM components for viscosity_Nodes
-<<<<<<< HEAD
         self.m_viscosity = 5
-=======
-        self.m_viscosity = 2
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
         viscosity_indices_path = os.path.join(fom_snapshot_dir, f'deim_viscosity_indices_m{self.m_viscosity}.npy')
         viscosity_proj_mat_path = os.path.join(fom_snapshot_dir, f'deim_viscosity_proj_matrix_m{self.m_viscosity}.npy')
         try:
@@ -892,14 +883,9 @@ class ROMTimeSeries:
             for i, pipe_idx in enumerate(self.deim_q_loss_indices):
                 q_loss_pipe_at_deim_indices[i] = StaticData.Pipes_l[pipe_idx] / self.Ur[pipe_idx] * (self.T_pipe_mean[pipe_idx] - self.T_out)
             
-<<<<<<< HEAD
             # Approximate full Q_loss_Pipe using DEIM projection and apply correction
             self.Q_loss_Pipe = self.deim_q_loss_proj_matrix @ q_loss_pipe_at_deim_indices
             self.Q_loss_Pipe = self.Q_loss_Pipe * 5.5787665
-=======
-            # Approximate full Q_loss_Pipe using DEIM projection
-            self.Q_loss_Pipe = self.deim_q_loss_proj_matrix @ q_loss_pipe_at_deim_indices
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
             
             tempexp=np.exp(-StaticData.Pipes_l/
                            (StaticData.Pipes_A*self.cp*self.rho*self.Ur*np.clip(abs(self.v),0.001,np.inf))).astype(float) # e^(-Ur*l/d/cp/rho/v)
@@ -954,12 +940,9 @@ class ROMTimeSeries:
             
             self.Q_loss_Pipe = self.Q_loss * StaticData.Pipes_l
             
-<<<<<<< HEAD
             # Apply ROM-specific correction factor
             self.Q_loss_Pipe = self.Q_loss_Pipe * 5.5787665
 
-=======
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
             C_Outlets=np.ones(StaticData.nbOutlets)
 
             D_Outlets = np.zeros_like(self.Q)
@@ -971,12 +954,8 @@ class ROMTimeSeries:
             D_Supply=Tsupply
     
             self.C_diag=np.concatenate((np.ones(StaticData.nbPipes+StaticData.nbPumps),C_Outlets,C_Supply),axis=0)
-<<<<<<< HEAD
             # Use the corrected Q_loss_Pipe to calculate DPipes for the thermal solve
             DPipes=-self.Q_loss_Pipe/(StaticData.Pipes_A*self.cp*self.rho*np.clip(abs(self.v),0.001,np.inf))
-=======
-            DPipes=-self.Q_loss*StaticData.Pipes_l/(StaticData.Pipes_A*self.cp*self.rho*np.clip(abs(self.v),0.001,np.inf))
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
             self.D=np.concatenate((DPipes,np.zeros(StaticData.nbPumps),D_Outlets,D_Supply),axis=0)
                 
     def buildsetT(self,StaticData,Tsupply):
@@ -1164,12 +1143,8 @@ class ROMTimeSeries:
         #    self.hydraulicPower=self.hydraulicPower*100
         #cp_Supply=self.cp[StaticData]
         self.HeatPowerSupply=self.m_supply*(self.T[StaticData.vorlauf_SupplieNodes]-self.T[StaticData.ruecklauf_SupplieNodes])*self.cp_Supply
-<<<<<<< HEAD
         # Q_loss_Pipe is now corrected inside buildTemperatureMatrix
         self.HeatLoses = np.sum(self.Q_loss_Pipe)
-=======
-        self.HeatLoses=sum(self.Q_loss_Pipe)*5.5787665
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
         #self.HeatLosesTest=sum(self.Q_loss*StaticData.Pipes_l)
         #self.HeatLosesTest2=sum(abs(self.m_i*(self.T[StaticData.startnode]*self.cp_Nodes[StaticData.startnode]-self.T[StaticData.targetnode]*self.cp_Nodes[StaticData.targetnode])))
         #self.HeatLosesTest2=sum(self.m_i*(self.T[StaticData.startnode]-self.T[StaticData.targetnode])*self.cp)

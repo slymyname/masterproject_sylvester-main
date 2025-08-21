@@ -147,12 +147,9 @@ elif ProgramModes.TsupplyMode == 'Custom':
         print(f"[{datetime.datetime.now()}] WARNING: Custom Tsupply profile is empty. Continuing with default Tsupply behavior.")
 
 # END: Benchmark Tsupply Profile Loading 
-<<<<<<< HEAD
 elif ProgramModes.TsupplyMode == 'Default':
     Tsupply_current_step_value = np.array([120.0])
     print(f"[{datetime.datetime.now()}] INFO: Using default Tsupply value: {Tsupply_current_step_value}")
-=======
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
 
 if not(ProgramModes.PowerInput=='None' and ProgramModes.TInput=='None'):
     LoadMeasValues.loadmat(SimEngine.datetimeStationary)
@@ -170,27 +167,14 @@ PlotResult=PlotResult(ProgramModes)
 LoadMeasValues.TemperatureOutside(r'prm/produkt_tu_stunde_19970701_20231231_03379.txt')
 
 #Snapshot Collection Setup  
-<<<<<<< HEAD
 # THIS IS THE CORRECTED LOGIC
 if ProgramModes.SimulationEngine == 'ROM':
-=======
-if ProgramModes.TsupplyMode == 'BenchmarkReplay':
-    if ProgramModes.SimulationEngine == 'ROM':
-        snapshot_dir = 'benchmark_rom_output'
-    else: # Default to FOM for safety
-        snapshot_dir = 'benchmark_fom_output'
-    if ProgramModes.EnableSnapshotSaving:
-        print(f"[[ INFO ]] BENCHMARK MODE: Snapshots will be saved to: {snapshot_dir}")
-
-elif ProgramModes.SimulationEngine == 'ROM':
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
     snapshot_dir = 'rom_snapshots'
     if ProgramModes.EnableSnapshotSaving:
         print(f"[[ INFO ]] ROM snapshots will be saved to: {snapshot_dir}")
     else:
         print(f"[[ INFO ]] ROM run: Snapshot saving is DISABLED for this run.")
 elif ProgramModes.SimulationEngine == 'FOM':
-<<<<<<< HEAD
     # Special case for benchmark runs if needed, otherwise default to fom_snapshots
     if ProgramModes.TsupplyMode == 'BenchmarkReplay':
         snapshot_dir = 'benchmark_fom_output'
@@ -202,13 +186,6 @@ elif ProgramModes.SimulationEngine == 'FOM':
             print(f"[[ INFO ]] FOM snapshots will be saved to: {snapshot_dir} (will overwrite existing if any)")
         else:
             print(f"[[ INFO ]] FOM run: Snapshot saving is DISABLED. Existing fom_snapshots will NOT be overwritten.")
-=======
-    snapshot_dir = 'fom_snapshots' # FOM snapshots go here
-    if ProgramModes.EnableSnapshotSaving:
-        print(f"[[ INFO ]] FOM snapshots will be saved to: {snapshot_dir} (will overwrite existing if any)")
-    else:
-        print(f"[[ INFO ]] FOM run: Snapshot saving is DISABLED. Existing fom_snapshots will NOT be overwritten.")
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
 else:
     snapshot_dir = 'unknown_engine_snapshots' 
     print(f"[[ WARNING ]] Unknown simulation engine for snapshot directory: {snapshot_dir}")
@@ -272,7 +249,6 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
         
         elif ProgramModes.SimulationEngine == 'ROM':
             # ROM Tsupply logic (using loaded_fom_tsupply_values)
-<<<<<<< HEAD
             if ProgramModes.Optimize == 'Yes' and Optimize is not None:
                 # The Tsupply_current_step_value from the PREVIOUS step (or initial guess) is used as the starting point for the optimizer
                 print(f"[{datetime.datetime.now()}] FOM Optimizer input Tsupply: {Tsupply_current_step_value}")
@@ -281,9 +257,6 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
                 print(f"[{datetime.datetime.now()}] FOM Optimizer output Tsupply: {Tsupply_current_step_value}")
             
             elif using_fom_tsupply_snapshots:
-=======
-            if using_fom_tsupply_snapshots:
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
                 if fom_tsupply_idx < len(loaded_fom_tsupply_values):
                     Tsupply_current_step_value = np.array([loaded_fom_tsupply_values[fom_tsupply_idx]])
                     if Tsupply_current_step_value.ndim > 1: Tsupply_current_step_value = Tsupply_current_step_value.flatten()
@@ -320,12 +293,6 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
 
         # Calculate and store the minimum pressure difference across all consumers
         consumer_p_diffs = SimEngine.p[StaticData.vorlauf_consumptionnode] - SimEngine.p[StaticData.ruecklauf_consumptionnode]
-<<<<<<< HEAD
-        min_p_diff = np.min(consumer_p_diffs) if len(consumer_p_diffs) > 0 else 0
-        PlotResult.p_diff_consumer_min.append(min_p_diff)
-        # --- End MPC State Collection ---
-
-=======
         min_consumer_p_diff = np.min(consumer_p_diffs)
         PlotResult.p_diff_consumer_min.append(min_consumer_p_diff)
         
@@ -351,20 +318,14 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
         mpc_data_recorder.append(snapshot)
 
         
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
         if ProgramModes.EnableSnapshotSaving: 
             current_datetime_snapshots.append(SimEngine.datetimeStationary[-1])
             current_T_snapshots.append(SimEngine.T.copy())
             current_rho_nodes_snapshots.append(SimEngine.rho_Nodes.copy())
             current_cp_nodes_snapshots.append(SimEngine.cp_Nodes.copy())
             current_viscosity_nodes_snapshots.append(SimEngine.viscosity_Nodes.copy())
-<<<<<<< HEAD
-            current_heat_losses_snapshots.append(SimEngine.HeatLoses) # Use the pre-calculated, corrected sum
-            current_q_loss_pipe_snapshots.append(SimEngine.Q_loss_Pipe.copy()) # This vector now contains the corrected values
-=======
             current_heat_losses_snapshots.append(np.sum(SimEngine.Q_loss_Pipe)) 
             current_q_loss_pipe_snapshots.append(SimEngine.Q_loss_Pipe.copy()) 
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
             current_t_out_snapshots.append(SimEngine.T_out)
             current_tsupply_snapshots.append(Tsupply_current_step_value.copy()) # Save the Tsupply used for this step
         
@@ -505,9 +466,6 @@ ps = pstats.Stats(profiler, stream=s).sort_stats(sortby)
 ps.print_stats(50) 
 print(s.getvalue())                
 # profiler.dump_stats(os.path.join(snapshot_dir, 'rom_profile.prof')) 
-<<<<<<< HEAD
-# print(f"Profiling data saved to {os.path.join(snapshot_dir, 'rom_profile.prof')}") 
-=======
 # print(f"Profiling data saved to {os.path.join(snapshot_dir, 'rom_profile.prof')}") 
 
 if __name__ == "__main__":
@@ -564,4 +522,3 @@ if __name__ == "__main__":
             np.save(output_filename, data_array)
             print(f"\nSuccessfully saved MPC training data to '{output_filename}'")
             print(f"Recorded {len(data_array)} timesteps.") 
->>>>>>> 8a943aff3b95ac598887419c967bc5fe0537570b
