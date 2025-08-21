@@ -293,29 +293,29 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
 
         # Calculate and store the minimum pressure difference across all consumers
         consumer_p_diffs = SimEngine.p[StaticData.vorlauf_consumptionnode] - SimEngine.p[StaticData.ruecklauf_consumptionnode]
-        min_consumer_p_diff = np.min(consumer_p_diffs)
-        PlotResult.p_diff_consumer_min.append(min_consumer_p_diff)
+        min_p_diff = np.min(consumer_p_diffs) if len(consumer_p_diffs) > 0 else 0
+        PlotResult.p_diff_consumer_min.append(min_p_diff)
         
         # --- Record Data for NN Training ---
-        current_ambient_temp = SimEngine.T_out # Corrected: Get temp from SimEngine
-        # Calculate total heat delivered to consumers (a proxy for demand)
-        cp_water = 4186 # J/kgK, approximate
-        heat_delivered = np.sum(SimEngine.m_consumer * cp_water * 
-                                (SimEngine.T[StaticData.vorlauf_consumptionnode] - SimEngine.T[StaticData.ruecklauf_consumptionnode]))
+        # current_ambient_temp = SimEngine.T_out # Corrected: Get temp from SimEngine
+        # # Calculate total heat delivered to consumers (a proxy for demand)
+        # cp_water = 4186 # J/kgK, approximate
+        # heat_delivered = np.sum(SimEngine.m_consumer * cp_water * 
+        #                         (SimEngine.T[StaticData.vorlauf_consumptionnode] - SimEngine.T[StaticData.ruecklauf_consumptionnode]))
         
-        snapshot = {
-            # Inputs
-            'T_supply': Tsupply_current_step_value,
-            'T_ambient': current_ambient_temp,
-            'Heat_Demand': heat_delivered,
-            # Outputs
-            'Heat_Loss': SimEngine.HeatLoses,
-            'Pump_Power': SimEngine.hydraulicPower,
-            'P_outlet': plant_outlet_pressure,
-            'P_inlet': plant_inlet_pressure,
-            'P_diff_min': min_consumer_p_diff
-        }
-        mpc_data_recorder.append(snapshot)
+        # snapshot = {
+        #     # Inputs
+        #     'T_supply': Tsupply_current_step_value,
+        #     'T_ambient': current_ambient_temp,
+        #     'Heat_Demand': heat_delivered,
+        #     # Outputs
+        #     'Heat_Loss': SimEngine.HeatLoses,
+        #     'Pump_Power': SimEngine.hydraulicPower,
+        #     'P_outlet': plant_outlet_pressure,
+        #     'P_inlet': plant_inlet_pressure,
+        #     'P_diff_min': min_consumer_p_diff
+        # }
+        # mpc_data_recorder.append(snapshot)
 
         
         if ProgramModes.EnableSnapshotSaving: 
