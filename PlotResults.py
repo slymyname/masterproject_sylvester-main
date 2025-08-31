@@ -19,6 +19,10 @@ class PlotResult:
         self.HL1=[]
         self.HL2=[]
         self.PumpPower=[]
+        # MPC-related attributes (initialize as empty lists)
+        self.p_plant = []
+        self.p_diff_consumer_min = []
+        self.T_supply = []
     def plotT(self, ax, TimeSeries, ProgramModes):
         arrayT = np.vstack(self.T)
         if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureCalculationMode=='stationary':
@@ -81,9 +85,82 @@ class PlotResult:
     
         plt.tight_layout()  # Adjust subplots to fit into figure area.
         plt.show()
+    
+    def plot_mpc_states(self, TimeSeries, StaticData):
+        """
+        Creates a new figure to plot states relevant for MPC.
+        """
+        fig, axes = plt.subplots(2, 2, figsize=(16, 10), sharex=True)
+        fig.suptitle('MPC-Relevant States and Constraints', fontsize=16)
+        ax = axes.ravel()
+        
+        datetimes = TimeSeries.datetimeStationary[:]
+
+        # 1. Objective Function Components
+        if self.HL1:  # Check if HL1 is not empty
+            ax[0].plot(datetimes, [val / 1e6 for val in self.HL1], label='Total Heat Loss (MW)', color='red', drawstyle='steps-post')
+        else:
+            print("Warning: self.HL1 is empty, not plotting Total Heat Loss.")
+
+        ax0_twin = ax[0].twinx()
+        if self.PumpPower:  # Check if PumpPower is not empty
+            ax0_twin.plot(datetimes, [val / 1e6 for val in self.PumpPower], label='Total Pump Power (MW)', color='blue', drawstyle='steps-post')
+        else:
+            print("Warning: self.PumpPower is empty, not plotting Total Pump Power.")
+        ax[0].set_title('Objective Function Components')
+        ax[0].set_ylabel('Heat Loss (MW)', color='red')
+        ax0_twin.set_ylabel('Pump Power (MW)', color='blue')
+        ax[0].grid(True)
+        ax[0].legend(loc='upper left')
+        ax0_twin.legend(loc='upper right')
+
+        # 2. Plant Pressures
+        if self.p_plant and len(self.p_plant) > 0:
+            p_plant_array = np.array(self.p_plant)
+            if p_plant_array.shape[1] >= 2:
+                ax[1].plot(datetimes, p_plant_array[:, 0], label='Outlet Pressure', color='darkorange', drawstyle='steps-post')
+                ax[1].plot(datetimes, p_plant_array[:, 1], label='Inlet Pressure', color='purple', drawstyle='steps-post')
+                ax[1].axhline(y=17.5, color='darkorange', linestyle='--', label='Max Outlet Pressure (17.5 bar)')
+                ax[1].axhline(y=4, color='purple', linestyle='--', label='Min Inlet Pressure (4 bar)')
+        ax[1].set_title('Power Plant Pressures')
+        ax[1].set_ylabel('Pressure (bar)')
+        ax[1].grid(True)
+        ax[1].legend()
+
+        # 3. Minimum Consumer Pressure Difference
+        if self.p_diff_consumer_min and len(self.p_diff_consumer_min) > 0:
+            ax[2].plot(datetimes, self.p_diff_consumer_min, label='Min. Consumer Pressure Difference', color='green', drawstyle='steps-post')
+            ax[2].axhline(y=0.8, color='green', linestyle='--', label='Min Required Difference (0.8 bar)')
+        ax[2].set_title('Consumer Pressure Difference')
+        ax[2].set_ylabel('Pressure Difference (bar)')
+        ax[2].grid(True)
+        ax[2].legend()
+        ax[2].set_xlabel('Time')
+
+
+        # 4. Supply Temperature
+        if self.T_supply and len(self.T_supply) > 0:
+            T_supply_flat = [item[0] if isinstance(item, np.ndarray) else item for item in self.T_supply]
+            ax[3].plot(datetimes, T_supply_flat, label='Supply Temperature', color='magenta', drawstyle='steps-post')
+            ax[3].axhline(y=150, color='magenta', linestyle='--', label='Max Supply Temp (150°C)')
+            ax[3].axhline(y=80, color='magenta', linestyle=':', label='Min Supply Temp (80°C)')
+        ax[3].set_title('Supply Temperature (MPC Input)')
+        ax[3].set_ylabel('Temperature (°C)')
+        ax[3].grid(True)
+        ax[3].legend()
+        ax[3].set_xlabel('Time')
+
+        for axis in ax:
+            for label in axis.get_xticklabels():
+                label.set_rotation(30)
+                label.set_ha('right')
+
+        plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+        plt.show()
+    
         
     def plot_single(self, plot_type, TimeSeries, ProgramModes):
-        fig, ax = plt.subplots(figsize=(8, 6))  # Create a single subplot
+        fig, ax = plt.subplots(figsize=(16, 9))  # Create a single subplot
         
         if plot_type == 'T':
             self.plotT(ax, TimeSeries, ProgramModes)
@@ -101,7 +178,7 @@ class PlotResult:
         plt.show()
             
     def plot_single_choose(self, plot_type, TimeSeries, ProgramModes, line_indices=None):
-        fig, ax = plt.subplots(figsize=(8, 6))  # Create a single subplot
+        fig, ax = plt.subplots(figsize=(16, 9))  # Create a single subplot
         
         # Select and plot the desired data based on plot_type
         if plot_type == 'T':
