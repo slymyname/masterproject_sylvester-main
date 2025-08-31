@@ -31,10 +31,10 @@ ProgramModes.HeatLossNextPipe='No' #'Yes' or 'No'
 ProgramModes.randomConsumerMode='default' # 'Gauss'
 ProgramModes.PowerInput='None' #for Measurement Values 'None' 'Q' and 'm' 
 ProgramModes.TInput='None' # for Measurement Value at Supply 'Yes' or 'None' 
-ProgramModes.Optimize='No' # 'Yes' or 'No'
+ProgramModes.Optimize='Yes' # 'Yes' or 'No'
 
-ProgramModes.startTime=datetime.datetime(2022, 2, 1, 0, 0, 0, 0) #change startdate
-ProgramModes.endTime=datetime.datetime(2022, 2, 3, 0, 0, 0, 0)
+ProgramModes.startTime=datetime.datetime(2022, 2, 1, 1, 0, 0, 0) #change startdate
+ProgramModes.endTime=datetime.datetime(2022, 2, 1, 1 , 30 ,0, 0) #change enddate
 
 
 StaticData=StaticData()
@@ -62,27 +62,7 @@ LoadMeasValues.TemperatureOutside(r'prm/produkt_tu_stunde_19970701_20231231_0337
 
 
 
-Tsupply_values = [110.50538848, 110.30381051, 111.06077353, 110.59445023, 110.67591816,
-                         110.45126529, 109.27746027, 108.51502387, 108.5750523, 108.95780088,
-                         108.63269546, 108.00233205, 107.99820189, 107.19264065, 106.40765986,
-                         106.56624785, 105.54677866, 105.89819487, 106.7497089, 107.12062118,
-                         107.8229505, 107.40800564, 108.67829473, 109.02263402, 107.93369876,
-                         107.93410031, 108.00846395, 106.7354604, 108.58462167, 107.882428,
-                         107.39443598, 106.55677488, 105.28379949, 106.30298588, 105.50441555,
-                         104.52176034, 104.0195072, 104.97679481, 104.72669458, 106.3239832,
-                         105.74753909, 106.35919123, 105.90101016, 105.60284368, 105.32943348,
-                         105.74192032, 105.05745241, 105.58311348, 105.63719044, 106.30804619,
-                         105.58606245, 106.30616779, 105.09004877, 104.27003531, 105.50430354,
-                         103.71533864, 104.63805578, 104.35578993, 102.96814555, 103.16421547,
-                         103.07314541, 100.96778802, 101.81307898, 102.05518588, 102.59435524,
-                         102.12825618, 103.52729421, 103.03389754, 103.78004194, 104.2672075,
-                         105.52277801, 106.10188857, 106.88698283, 106.61876888, 105.35341783,
-                         104.93315822, 105.69336581, 106.26036153, 106.62847915, 107.63611924,
-                         107.29263901, 106.889335, 107.45154014, 105.05471139, 105.41793582,
-                         105.57988551, 105.91851627, 105.22897674, 104.37049323, 106.08168836,
-                         106.51862453, 106.03608488, 105.78135172, 104.63464744, 104.19230685,
-                         103.86042585, 103.52817392]
-Tsupply_gen=iter(Tsupply_values)
+Tsupply=np.array([120])  #here the Supply Tempreture can be set
 
 if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureCalculationMode=='stationary':
      
@@ -96,11 +76,6 @@ if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureC
                 
         if ProgramModes.TInput=='Yes':
             Tsupply=np.array([LoadMeasValues.SupplyTemperature(TimeSeries.datetimeStationary[-1])])
-        else:
-            try:
-                Tsupply=np.array([next(Tsupply_gen)])
-            except:
-                Tsupply=np.array([120])
             
         if ProgramModes.Optimize=='Yes':
             Tsupply=Optimize.optimize(Tsupply, StaticData, TimeSeries, hydraulicMesh, ProgramModes,LoadMeasValues)
@@ -161,6 +136,7 @@ end = time.time()
 print("The time of execution of above program is :",
       (end-start), "s")
 
-print(sum(PlotResult.HL1)*ProgramModes.stationaryTimeStep/60*1e-6,'MWh')
+
 PlotResult.plot_combined(TimeSeries,ProgramModes)
+PlotResult.plot_mpc_states(TimeSeries, StaticData)
 print(sum(PlotResult.HL1)*ProgramModes.stationaryTimeStep/60*1e-6,'MWh')
