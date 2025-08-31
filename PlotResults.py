@@ -19,10 +19,6 @@ class PlotResult:
         self.HL1=[]
         self.HL2=[]
         self.PumpPower=[]
-        # MPC-related attributes (initialize as empty lists)
-        self.p_plant = []
-        self.p_diff_consumer_min = []
-        self.T_supply = []
     def plotT(self, ax, TimeSeries, ProgramModes):
         arrayT = np.vstack(self.T)
         if ProgramModes.TempratureCalculationMode=='default' or ProgramModes.TempratureCalculationMode=='stationary':
@@ -34,6 +30,9 @@ class PlotResult:
         ax.grid(True)
         ax.set_ylim([np.min(arrayT)*0.9,np.max(arrayT)*1.1])
         ax.set_xlim(TimeSeries.datetimeStationary[0],TimeSeries.datetimeStationary[-1])
+        ax.axhline(y=80, color='g', linestyle='--', label='Min Supply Temperature (80 °C)')
+        ax.axhline(y=150, color='m', linestyle='--', label='Max Supply Temperature (150 °C)')
+        ax.legend()
 
     def plotp(self, ax, TimeSeries, ProgramModes):
         arrayp = np.vstack(self.p)
@@ -42,6 +41,9 @@ class PlotResult:
         ax.set_ylabel(r'Pressure in $bar$')
         ax.grid(True)
         ax.set_ylim([np.min(arrayp)*0.9,np.max(arrayp)*1.1])
+        ax.axhline(y=17.5, color='r', linestyle='--', label='Max Outlet Pressure (17.5 bar)')
+        ax.axhline(y=4, color='b', linestyle='--', label='Min Inlet Pressure (4 bar)')
+        ax.legend()
         
     def plotm_i(self, ax, TimeSeries, ProgramModes):
         arraym_i = np.vstack(self.m_i)
@@ -85,100 +87,7 @@ class PlotResult:
     
         plt.tight_layout()  # Adjust subplots to fit into figure area.
         plt.show()
-    
-    def plot_mpc_states(self, TimeSeries, StaticData):
-        """
-        Creates a new figure to plot states relevant for MPC.
-        """
-        fig, axes = plt.subplots(3, 2, figsize=(16, 15), sharex=True)
-        fig.suptitle('MPC-Relevant States and Constraints', fontsize=16)
-        ax = axes.ravel()
-        
-        datetimes = TimeSeries.datetimeStationary[:]
-
-        # 1. Objective Function Components
-        if self.HL1:
-            ax[0].plot(datetimes, [val / 1e6 for val in self.HL1], label='Total Heat Loss (MW)', color='red', drawstyle='steps-post')
-        else:
-            print("Warning: self.HL1 is empty, not plotting Total Heat Loss.")
-
-        ax0_twin = ax[0].twinx()
-        if self.PumpPower:
-            ax0_twin.plot(datetimes, [val / 1e6 for val in self.PumpPower], label='Total Pump Power (MW)', color='blue', drawstyle='steps-post')
-        else:
-            print("Warning: self.PumpPower is empty, not plotting Total Pump Power.")
-        ax[0].set_title('Objective Function Components')
-        ax[0].set_ylabel('Heat Loss (MW)', color='red')
-        ax0_twin.set_ylabel('Pump Power (MW)', color='blue')
-        ax[0].grid(True)
-        ax[0].legend(loc='upper left')
-        ax0_twin.legend(loc='upper right')
-
-        # 2. Plant Pressures
-        if self.p_plant and len(self.p_plant) > 0:
-            p_plant_array = np.array(self.p_plant)
-            if p_plant_array.shape[1] >= 2:
-                ax[1].plot(datetimes, p_plant_array[:, 0], label='Outlet Pressure', color='darkorange', drawstyle='steps-post')
-                ax[1].plot(datetimes, p_plant_array[:, 1], label='Inlet Pressure', color='purple', drawstyle='steps-post')
-        ax[1].axhline(y=17.5, color='darkorange', linestyle='--', label='Max Outlet Pressure (17.5 bar)')
-        ax[1].axhline(y=4, color='purple', linestyle='--', label='Min Inlet Pressure (4 bar)')
-        ax[1].set_title('Power Plant Pressures')
-        ax[1].set_ylabel('Pressure (bar)')
-        ax[1].grid(True)
-        ax[1].legend()
-
-        # 3. Minimum Consumer Pressure Difference
-        if self.p_diff_consumer_min and len(self.p_diff_consumer_min) > 0:
-            ax[2].plot(datetimes, self.p_diff_consumer_min, label='Min. Consumer Pressure Difference', color='green', drawstyle='steps-post')
-        ax[2].axhline(y=0.8, color='green', linestyle='--', label='Min Required Difference (0.8 bar)')
-        ax[2].set_title('Consumer Pressure Difference')
-        ax[2].set_ylabel('Pressure Difference (bar)')
-        ax[2].grid(True)
-        ax[2].legend()
-        ax[2].set_xlabel('Time')
-
-
-        # 4. Supply Temperature
-        if self.T_supply and len(self.T_supply) > 0:
-            T_supply_flat = [item[0] if isinstance(item, np.ndarray) else item for item in self.T_supply]
-            ax[3].plot(datetimes, T_supply_flat, label='Supply Temperature', color='magenta', drawstyle='steps-post')
-        ax[3].axhline(y=150, color='magenta', linestyle='--', label='Max Supply Temp (150°C)')
-        ax[3].axhline(y=80, color='magenta', linestyle=':', label='Min Supply Temp (80°C)')
-        ax[3].set_title('Supply Temperature (MPC Input)')
-        ax[3].set_ylabel('Temperature (°C)')
-        ax[3].grid(True)
-        ax[3].legend()
-        ax[3].set_xlabel('Time')
-        
-        # 5. Flow Velocity at Power Plant Outlet (using massflow as proxy)
-        if self.m_i and len(self.m_i) > 0:
-            # Assuming the first column of m_i corresponds to the power plant outlet massflow
-            massflow_outlet = np.array(self.m_i)[:, 0]
-            ax[4].plot(datetimes, massflow_outlet, label='Massflow at Plant Outlet', color='cyan', drawstyle='steps-post')
-            ax[4].axhline(y=100, color='cyan', linestyle='--', label='Max Massflow (proxy for 4 m/s)') # Placeholder value
-        ax[4].set_title('Flow Velocity / Massflow at Plant Outlet')
-        ax[4].set_ylabel(r'Massflow in $\frac{kg}{s}$')
-        ax[4].grid(True)
-        ax[4].legend()
-        ax[4].set_xlabel('Time')
-
-        # 6. Max Gradient of Supply Temperature (Placeholder)
-        ax[5].plot(datetimes, np.zeros_like(datetimes), label='Temperature Gradient', color='gray', linestyle='--') # Placeholder
-        ax[5].axhline(y=5/3600, color='gray', linestyle='--', label='Max Temp Gradient (5 K/h)') # Placeholder value (5K/h in K/s)
-        ax[5].set_title('Max Gradient of Supply Temperature')
-        ax[5].set_ylabel(r'Temperature Gradient in $\frac{K}{s}$')
-        ax[5].grid(True)
-        ax[5].legend()
-        ax[5].set_xlabel('Time')
-
-        for axis in ax:
-            for label in axis.get_xticklabels():
-                label.set_rotation(30)
-                label.set_ha('right')
-
-        plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-        plt.show()
-    
+     
         
     def plot_single(self, plot_type, TimeSeries, ProgramModes):
         fig, ax = plt.subplots(figsize=(16, 9))  # Create a single subplot
